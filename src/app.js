@@ -7,21 +7,12 @@ import Number from './components/number/index.vue'
 import Point from './components/point/index.vue'
 import Keyboard from './components/keyboard/index.vue'
 import Logo from './components/logo/index.vue'
-import { List } from 'immutable'
 import Matrix from './components/matrix/index.vue'
 import { mapState } from 'vuex'
 import { transform, lastRecord, speeds, i18n, lan } from './unit/const'
 import { visibilityChangeEvent, isFocus } from './unit/'
 import states from './control/states'
 export default {
-  watch: {
-    w() {
-      this.render()
-    },
-    h() {
-      this.render()
-    }
-  },
   mounted() {
     this.render()
     window.addEventListener('resize', this.resize.bind(this), true)
@@ -120,9 +111,10 @@ export default {
           const speedRun = this.$store.state.speedRun
           let timeout = speeds[speedRun - 1] / 2 // 继续时, 给予当前下落速度一半的停留时间
           // 停留时间不小于最快速的速度
-          timeout = speedRun < speeds[speeds.length - 1]
-            ? speeds[speeds.length - 1]
-            : speedRun
+          timeout =
+            speedRun < speeds[speeds.length - 1]
+              ? speeds[speeds.length - 1]
+              : speedRun
           states.auto(timeout)
         }
 
